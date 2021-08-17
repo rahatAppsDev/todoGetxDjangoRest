@@ -3,6 +3,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:todo_getx/controllers/TodoController.dart';
 import 'package:todo_getx/models/todoModel.dart';
+import 'package:todo_getx/views/EditTodoPage.dart';
 import 'package:todo_getx/views/addnewtodo.dart';
 
 class TodoListPage extends StatefulWidget {
@@ -48,13 +49,40 @@ class _TodoListPageState extends State<TodoListPage> {
                       mainAxisSpacing: 5,
                       crossAxisSpacing: 5,
                       itemBuilder: (context, index) {
-                        return Container(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          alignment: Alignment.center,
-                          color: Colors.grey,
-                          child: Text(
-                              "${todoController.todos[index].itemdetails}"),
+                        return Dismissible(
+                          key: UniqueKey(),
+
+                          //direction: DismissDirection.startToEnd,
+                          onDismissed: (direction) {
+                            if (direction == DismissDirection.endToStart) {
+                              todoController.deleteTodo(todoController.todos[index].id);
+                              print("delete called");
+                            } else if (direction == DismissDirection.startToEnd) {
+
+                            }
+                          },
+
+                          background: Container(child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(Icons.delete,color: Colors.red,),
+                              Container(child: Text("Edit",style: TextStyle(color: Colors.green),))
+                            ],
+                          )),
+                          child: InkWell(
+                            onTap: () {
+                              Get.to(EditTodoPage(todoController.todos[index].id));
+                              print("edit called");
+                            },
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width,
+                              alignment: Alignment.center,
+                              color: Colors.grey,
+                              child: Text(
+                                  "${todoController.todos[index].itemdetails}"),
+                            ),
+                          ),
                         );
                       },
                       staggeredTileBuilder: (index) => StaggeredTile.fit(1));

@@ -44,4 +44,42 @@ class TodoController extends GetxController {
       //return false;
     }
   }
+
+
+
+  Future<bool> editTodos(String item,int id) async {
+
+    try {
+
+      remoteServicesInstance
+          .putTodosToServer(item,id)
+          .then((value) {
+
+        fetchTodos();
+      });
+
+      print("recieved");
+      return true;
+    } finally {
+      //return false;
+    }
+  }
+
+  Future<bool> deleteTodo(int id) async {
+
+    try {
+
+      remoteServicesInstance
+          .deleteTodoServer(id)
+          .then((value) {
+
+        fetchTodos();
+      });
+
+      print("deleted");
+      return true;
+    } finally {
+      //return false;
+    }
+  }
 }

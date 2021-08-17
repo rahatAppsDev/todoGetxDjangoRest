@@ -33,4 +33,24 @@ class RemoteServices extends GetConnect {
     print("body ${response.statusCode}");
 
   }
+
+  Future putTodosToServer(String item,int id) async {
+    var todoToJson = json.encode({"itemdetails":item});
+
+    print("tojson $todoToJson");
+    var response = await put("http://192.168.0.166:8000/update_item/$id/",todoToJson);
+    print("body ${response.statusCode}");
+
+  }
+
+
+  Future deleteTodoServer(int id) async {
+    //var todoToJson = json.encode({"itemdetails":item});
+
+    //print("tojson $todoToJson");
+    var response = await delete("http://192.168.0.166:8000/delete_item/$id/",);
+    print("deletebody$id ${response.statusCode}");
+
+  }
+
 }

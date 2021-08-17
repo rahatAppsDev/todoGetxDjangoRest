@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:todo_getx/views/TodoListPage.dart';
 import 'package:todo_getx/views/addnewtodo.dart';
 
+import 'EditTodoPage.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -32,7 +34,8 @@ class MyApp extends StatelessWidget {
       home: TodoListPage(),
       getPages: [
         GetPage(name: '/addTodo', page: () => AddTodo()),
-        GetPage(name: '/listTodo', page: () => TodoListPage())
+        GetPage(name: '/listTodo', page: () => TodoListPage()),
+        //GetPage(name: '/editTodo', page: () => EditTodoPage()),
       ],
     );
   }
